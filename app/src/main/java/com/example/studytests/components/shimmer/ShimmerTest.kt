@@ -45,17 +45,17 @@ fun Modifier.shimmerEffect(
         initialValue = -2 * size.width.toFloat(),
         targetValue = 2 * size.width.toFloat(),
         animationSpec = infiniteRepeatable(
-                animation = keyframes {
-                    durationMillis = 1500
-                    // Frame 1: de 0ms a 500ms
-                    -2 * size.width.toFloat() at 0 with LinearEasing
-                    -1 * size.width.toFloat() at 500 with LinearEasing
-                    // Frame 2: de 500ms a 1000ms
-                    1 * size.width.toFloat() at 1000 with LinearOutSlowInEasing
-                    // Frame 3: de 1000ms a 1500ms
-                    2 * size.width.toFloat() at 1500 with FastOutLinearInEasing
-                },
-                repeatMode = RepeatMode.Restart
+            animation = keyframes {
+                durationMillis = 1500
+                // Frame 1: de 0ms a 500ms
+                -2 * size.width.toFloat() at 0 with LinearEasing
+                -1 * size.width.toFloat() at 500 with LinearEasing
+                // Frame 2: de 500ms a 1000ms
+                1 * size.width.toFloat() at 1000 with LinearOutSlowInEasing
+                // Frame 3: de 1000ms a 1500ms
+                2 * size.width.toFloat() at 1500 with FastOutLinearInEasing
+            },
+            repeatMode = RepeatMode.Restart
         ), label = ""
     )
 

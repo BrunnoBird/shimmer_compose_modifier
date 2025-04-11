@@ -1,5 +1,6 @@
 package com.example.studytests.components.calendar.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -7,12 +8,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.text.BasicText
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
@@ -33,6 +39,8 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
+import androidx.compose.ui.window.PopupProperties
+import com.example.studytests.components.calendar.data.CalendarItem
 
 @Composable
 fun CalendarDropDown(
@@ -49,7 +57,11 @@ fun CalendarDropDown(
 
     var rowWidth by remember { mutableIntStateOf(0) }
 
-    Column(modifier = modifier.wrapContentWidth()) {
+    Column(
+        modifier = modifier
+            .wrapContentWidth()
+            .background(Color.White)
+    ) {
         Box(
             modifier = Modifier
                 .wrapContentWidth()
@@ -63,6 +75,7 @@ fun CalendarDropDown(
             Row(
                 modifier = Modifier
                     .wrapContentWidth()
+                    .padding(horizontal = 8.dp)
                     .onGloballyPositioned {
                         rowWidth = it.size.width
                     },
@@ -73,15 +86,19 @@ fun CalendarDropDown(
                     text = selectedItem?.displayValue ?: placeholder,
                     style = TextStyle(fontSize = 14.sp, color = Color.Black)
                 )
-                Icon(imageVector = Icons.Filled.KeyboardArrowDown, contentDescription = null)
+                Icon(
+                    imageVector = if (expanded) Icons.Filled.KeyboardArrowUp else Icons.Filled.KeyboardArrowDown,
+                    contentDescription = null,
+                    modifier = Modifier.size(24.dp)
+                )
             }
         }
 
         HorizontalDivider(
-            color = if (expanded) Color.Yellow else Color.Gray,
+            color = if (expanded) Color.Blue else Color.Gray,
             thickness = 1.dp,
             modifier = Modifier
-                .width(with(density) { rowWidth.toDp() })
+                .width(with(density) { rowWidth.toDp() + 16.dp })
                 .onGloballyPositioned {
                     dividerHeightPx = it.size.height
                 }
@@ -90,41 +107,49 @@ fun CalendarDropDown(
         if (expanded) {
             val totalYOffSet = boxHeightPx + dividerHeightPx
 
-            //TODO AO TER UMA LISTA MUITO GRANDE NO ITEM, ELE SOBREPOE OS VALORES EM CIMA DO INPUT DROPDOWN
             Popup(
                 onDismissRequest = { expanded = false },
-                offset = IntOffset(0, totalYOffSet)
+                offset = IntOffset(0, totalYOffSet),
+                properties = PopupProperties(focusable = true, excludeFromSystemGesture = true)
             ) {
-                LazyColumn {
-                    items(items.size) { index ->
-                        val itemCalendar = items[index]
+                Box(
+                    modifier = Modifier
+                        .heightIn(max = 224.dp)
+                        .background(Color.White)
+                ) {
+                    LazyColumn(
+                        state = rememberLazyListState()
+                    ) {
+                        items(items.size) { index ->
+                            val itemCalendar = items[index]
 
-                        Row(
-                            modifier = Modifier.height(48.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(4.dp)
-                        ) {
-                            VerticalDivider(
-                                modifier = Modifier.fillMaxHeight(),
-                                color = if (
-                                    expanded
-                                    && selectedItem != null
-                                    && selectedItem.displayValue == itemCalendar.displayValue
-                                ) {
-                                    Color.Blue
-                                } else {
-                                    Color.Transparent
-                                },
-                                thickness = 2.dp
-                            )
-                            Text(
-                                text = itemCalendar.displayValue,
-                                modifier = Modifier
-                                    .clickable {
-                                        onItemSelected(itemCalendar)
-                                        expanded = false
-                                    }
-                            )
+                            Row(
+                                modifier = Modifier.height(48.dp),
+                                verticalAlignment = Alignment.CenterVertically,
+                                horizontalArrangement = Arrangement.spacedBy(4.dp)
+                            ) {
+                                VerticalDivider(
+                                    modifier = Modifier.fillMaxHeight(),
+                                    color = if (
+                                        expanded
+                                        && selectedItem != null
+                                        && selectedItem.displayValue == itemCalendar.displayValue
+                                    ) {
+                                        Color.Blue
+                                    } else {
+                                        Color.Transparent
+                                    },
+                                    thickness = 2.dp
+                                )
+                                Text(
+                                    text = itemCalendar.displayValue,
+                                    modifier = Modifier
+                                        .clickable {
+                                            onItemSelected(itemCalendar)
+                                            expanded = false
+                                        }
+                                )
+                            }
                         }
                     }
                 }
@@ -132,8 +157,3 @@ fun CalendarDropDown(
         }
     }
 }
-
-data class CalendarItem(
-    val value: Any,
-    val displayValue: String
-)

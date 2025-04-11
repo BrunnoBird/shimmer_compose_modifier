@@ -14,9 +14,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.studytests.components.calendar.BirdCalendarIndividual
 import com.example.studytests.components.calendar.CalendarSemMaterial
 import com.example.studytests.components.calendar.CalendarStyle
+import com.example.studytests.components.calendar.individual.BirdCalendarIndividual
 import java.util.Calendar
 
 

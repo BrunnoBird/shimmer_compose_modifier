@@ -40,15 +40,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
 import androidx.compose.ui.window.PopupProperties
-import com.example.studytests.components.calendar.data.CalendarItem
+import com.example.studytests.components.calendar.data.CalendarItemData
 
 @Composable
-fun CalendarDropDown(
-    selectedItem: CalendarItem?,
-    items: List<CalendarItem>,
+internal fun CalendarDropDown(
+    selectedItem: CalendarItemData?,
+    items: List<CalendarItemData>,
     modifier: Modifier = Modifier,
     placeholder: String = "Selecionar",
-    onItemSelected: (CalendarItem) -> Unit
+    onItemSelected: (CalendarItemData) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var boxHeightPx by remember { mutableIntStateOf(0) }

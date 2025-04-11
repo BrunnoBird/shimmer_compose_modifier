@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">StudyTests</string>
     <string name="info_box_date_full_date_format">%2$s %1$d, %3$d</string>

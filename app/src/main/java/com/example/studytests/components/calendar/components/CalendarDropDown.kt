@@ -62,7 +62,7 @@ internal fun CalendarDropDown(
     Column(
         modifier = modifier
             .wrapContentWidth()
-            .background(Color.White)
+            .background(Color.Transparent)
     ) {
         Box(
             modifier = Modifier

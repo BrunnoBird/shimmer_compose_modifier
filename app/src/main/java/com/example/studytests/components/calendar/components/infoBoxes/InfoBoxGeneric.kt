@@ -1,4 +1,4 @@
-package com.example.studytests.components.calendar.components.InfoBoxes
+package com.example.studytests.components.calendar.components.infoBoxes
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

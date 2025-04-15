@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -119,14 +120,20 @@ internal fun CalendarDropDown(
                         .background(Color.White)
                         .width(with(density) { rowWidth.toDp() + 16.dp })
                 ) {
+                    val lazyListState = rememberLazyListState()
+
                     LazyColumn(
-                        state = rememberLazyListState()
+                        userScrollEnabled = true,
+                        state = lazyListState,
+                        modifier = Modifier.lazyListVerticalScrollbar(lazyListState)
                     ) {
                         items(items.size) { index ->
                             val itemCalendar = items[index]
 
                             Row(
-                                modifier = Modifier.height(48.dp),
+                                modifier = Modifier
+                                    .height(48.dp)
+                                    .fillMaxWidth(),
                                 verticalAlignment = Alignment.CenterVertically,
                                 horizontalArrangement = Arrangement.spacedBy(4.dp)
                             ) {

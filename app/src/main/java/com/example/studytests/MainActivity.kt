@@ -51,18 +51,30 @@ class MainActivity : ComponentActivity() {
 
                         BirdCalendarIndividual(
                             modifier = Modifier.padding(16.dp),
-                            locale = Locale("en", "US"),
-//                            daysInfo = calendarListInfo,
-//                            iconInfoBox = {
-//                                Icon(
-//                                    imageVector = Icons.Filled.Create,
-//                                    contentDescription = null
-//                                )
-//                            }
+                            locale = Locale("pt", "BR"),
+                            daysInfo = calendarListInfo,
+                            iconInfoBox = {
+                                Icon(
+                                    imageVector = Icons.Filled.Create,
+                                    contentDescription = null
+                                )
+                            },
+                            hasInfoBox = true,
+                            onDateSelected = { dateSelected ->
+                                val dayDataInfoSelected =
+                                    calendarListInfo.find { it.date.sameDayAs(dateSelected) }
+                                println("Date selecionada: ${dayDataInfoSelected?.date}")
+                            }
                         )
                     }
                 }
             }
         }
     }
+}
+
+fun Calendar.sameDayAs(other: Calendar): Boolean {
+    return this.get(Calendar.YEAR) == other.get(Calendar.YEAR) &&
+            this.get(Calendar.MONTH) == other.get(Calendar.MONTH) &&
+            this.get(Calendar.DAY_OF_MONTH) == other.get(Calendar.DAY_OF_MONTH)
 }

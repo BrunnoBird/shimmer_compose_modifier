@@ -1,4 +1,4 @@
-package com.example.studytests.components.calendar.components.InfoBoxes
+package com.example.studytests.components.calendar.components.infoBoxes
 
 import androidx.compose.runtime.Composable
 import com.example.studytests.components.calendar.data.DayInfoData
@@ -17,9 +17,7 @@ fun InfoBoxManager(
 
     if (daysInfo.isNotEmpty() && infoDataSelectedDate != null) {
         InfoBoxDate(infoSelectedDate = infoDataSelectedDate, icon = iconInfoBox)
-    }
-
-    if (daysInfo.isEmpty()) {
+    } else {
         InfoBoxGeneric(selectedDate = selectedDate, locale = locale)
     }
 }

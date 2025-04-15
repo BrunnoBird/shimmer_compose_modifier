@@ -7,9 +7,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import com.example.studytests.components.calendar.components.InfoBoxes.InfoBoxManager
 import com.example.studytests.components.calendar.components.calendars.CalendarSingleDate
 import com.example.studytests.components.calendar.components.headers.CalendarHeaderDropdown
+import com.example.studytests.components.calendar.components.infoBoxes.InfoBoxManager
 import com.example.studytests.components.calendar.data.CalendarItemData
 import com.example.studytests.components.calendar.data.DayInfoData
 import com.example.studytests.components.calendar.utils.getDaysFromMonth
@@ -24,7 +24,8 @@ fun BirdCalendarIndividual(
     locale: Locale = Locale.getDefault(),
     daysInfo: List<DayInfoData> = emptyList(),
     hasInfoBox: Boolean = true,
-    iconInfoBox: @Composable (() -> Unit)? = null
+    iconInfoBox: @Composable (() -> Unit)? = null,
+    onDateSelected: ((Calendar) -> Unit)? = null
 ) {
     val today = remember(locale) { Calendar.getInstance(locale) }
     val years = getYears(locale)
@@ -71,7 +72,10 @@ fun BirdCalendarIndividual(
             onYearSelected = { selectedYear = it }
         )
 
-        CalendarSingleDate(days, today, selectedDate, locale) { selectedDate = it }
+        CalendarSingleDate(days, today, selectedDate, locale) {
+            selectedDate = it
+            onDateSelected?.invoke(it)
+        }
 
         if (hasInfoBox) {
             InfoBoxManager(daysInfo, selectedDate, locale, iconInfoBox)

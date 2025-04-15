@@ -50,11 +50,12 @@ internal fun CalendarDropDown(
     placeholder: String = "Selecionar",
     onItemSelected: (CalendarItemData) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
-    var boxHeightPx by remember { mutableIntStateOf(0) }
-    var dividerHeightPx by remember { mutableIntStateOf(0) }
     val density = LocalDensity.current
 
+    var expanded by remember { mutableStateOf(false) }
+
+    var boxHeightPx by remember { mutableIntStateOf(0) }
+    var dividerHeightPx by remember { mutableIntStateOf(0) }
     var rowWidth by remember { mutableIntStateOf(0) }
 
     Column(
@@ -116,6 +117,7 @@ internal fun CalendarDropDown(
                     modifier = Modifier
                         .heightIn(max = 224.dp)
                         .background(Color.White)
+                        .width(with(density) { rowWidth.toDp() + 16.dp })
                 ) {
                     LazyColumn(
                         state = rememberLazyListState()

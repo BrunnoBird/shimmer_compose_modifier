@@ -13,3 +13,11 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# IntelliJ / Android Studio
+.idea/*
+!.idea/codeStyles
+!.idea/runConfigurations
+!.idea/gradle.xml
+!.idea/compiler.xml
+!.idea/jarRepositories.xml
